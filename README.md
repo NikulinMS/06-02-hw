@@ -6,25 +6,43 @@
 
 ### Задание 1
 
-`Приведите ответ в свободной форме........`
+[centos@node01 docker]$ sudo docker pull postgres:12
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+docker-compose.yaml
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
-```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 1](ссылка на скриншот 1)`
+version: '3'
+services:
+ db:
+   container_name: pg12
+   image: postgres:12
+   environment:
+     POSTGRES_USER: nikulinm
+     POSTGRES_PASSWORD: 123456
+     POSTGRES_DB: netology_db
+   ports:
+     - "5432:5432"
+   volumes:
+     - database_volume:/home/database/
+     - backup_volume:/home/backup/
+
+volumes:
+ database_volume:
+ backup_volume:
+
+```
+Поднимаем docker-compose и запускаем bash внутри контейнера pg12:
+
+```
+[root@node01 docker]# docker-compose up -d
+Creating network "docker_default" with the default driver
+Creating volume "docker_database_volume" with default driver
+Creating volume "docker_backup_volume" with default driver
+Creating pg12 ... done
+[root@node01 docker]# docker exec -it pg12 bash
+root@1e4fa475e538:/#
+```
 
 
 ---
